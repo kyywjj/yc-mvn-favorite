@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>添加书签</title>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+	名称：<input v-model="Flable"><br>
+	地址：<input  v-model="Furl"><br>
+	分类：<input v-model="Ftag"><br>
+	描述：<textarea v-model="Fdesc"></textarea><br>
+	<button @click="add()">添加</button>
+	
+	
+</div>
+<script type="text/javascript">
+	var vue =new Vue({
+		el:"#app",
+		data : {
+			Flable:"",
+			Furl:"",
+			Fdesc:"",
+			Ftag:""
+			
+		},
+		methods :{
+			add(){
+				axios({
+    				url:"InsertFavorite.do",
+    				params:{
+    					Flable:this.Flable,
+    					Furl:this.Furl,
+    					Fdesc:this.Fdesc,
+    					Ftag:this.Ftag
+    				},
+    				
+    			}).then(res=>{
+    				if(res.data=="新增成功！"){
+    					alert(res.data);
+    					location.href="index.html";
+    				}
+    				
+    				console.info(res.data);
+    			});
+			}
+		} 
+	});
+	</script>
+</body>
+</html>
