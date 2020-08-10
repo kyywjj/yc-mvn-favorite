@@ -1,6 +1,5 @@
 package com.yc.spring;
 
-import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -50,7 +49,8 @@ public class HelloTest {
 	//创建Spring 容器对象
 	@Test
 	public void test() {
-		
+		//从Spring 框架（容器）中获取一个hello对象
+		//创建Spring 容器对象
 		 ctx = new ClassPathXmlApplicationContext("bean.xml");
 		
 		Hello h = (Hello) ctx.getBean("hello");
@@ -60,7 +60,7 @@ public class HelloTest {
 		Hello h2 = (Hello) ctx.getBean("hello");
 		
 		//h1和h2是同一个对象
-		//执行方法
+		 //执行方法
 		h.sayHello();
 		ctx.close();
 	}
@@ -130,6 +130,52 @@ public class HelloTest {
 		Person p1 = (Person) ctx.getBean("p6");
 		Assert.assertEquals("扈三娘", p1.getName());
 		Assert.assertEquals(20, p1.getAge());
+	}
+	
+	/**
+	 * bean 的作用域
+	 * 默认情况下 是单例模式
+	 */
+	@Test
+	public void test7() {
+		System.out.println("==================test7===============");
+		Hello h1 = (Hello) ctx.getBean("hello");
+		Hello h1_1 = (Hello) ctx.getBean("hello");
+		Hello h1_2 = (Hello) ctx.getBean("hello");
+		Hello h2 = (Hello) ctx.getBean("hello1");
+		Hello h2_1 = (Hello) ctx.getBean("hello1");
+		Hello h2_2 = (Hello) ctx.getBean("hello1");
+		System.out.println(h1==h2);//false
+		System.out.println(h1_1==h1_2);//true
+		System.out.println(h2_1==h2_2);//false
+		
+	}
+	
+	/**
+	 * bean 的作用域
+	 * 默认情况下 是单例模式
+	 */
+	@Test
+	public void test8() {
+		System.out.println("==================test8===============");
+		Hello h1 = (Hello) ctx.getBean("hello2");
+		h1.sayHello();
+		
+	}
+	
+	/**
+	 * 生命周期方法 
+	 */
+	@Test
+	public void test9() {
+		Hello h1 = (Hello) ctx.getBean("hello3");
+		h1.sayHello();
+	}
+	
+	@Test
+	public void test10() {
+		Person P7 = (Person) ctx.getBean("p7");
+		System.out.println(P7.getFriend().getName());
 	}
 	
 	
