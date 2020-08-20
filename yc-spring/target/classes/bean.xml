@@ -113,7 +113,7 @@
     <bean id="friend" class="com.yc.spring.bean.Person">
     	<property name="name" value="鲁智深"></property>
     </bean>
-    <bean id="p7" class="com.yc.spring.bean.Person" autowire="byName">
+    <bean id="p7" class="com.yc.spring.bean.Person" autowire="byName" >
     	<property name="name" value="武松"></property>
     	<property name="age" value="35"></property>
     </bean>

@@ -171,7 +171,7 @@ public class HelloTest {
 		Hello h1 = (Hello) ctx.getBean("hello3");
 		h1.sayHello();
 	}
-	
+	 
 	@Test
 	public void test10() {
 		Person P7 = (Person) ctx.getBean("p7");
