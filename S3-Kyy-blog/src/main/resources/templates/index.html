@@ -27,7 +27,7 @@
 </head>
 
 <body class="user-select">
-<header class="header">
+<header class="header" >
   <nav class="navbar navbar-default" id="navbar">
     <div class="container">
       <div class="header-topbar hidden-xs link-border">
@@ -43,19 +43,15 @@
             </ul>
           </li>
         </ul>
-        <a data-toggle="modal" data-target="#loginModal" class="login" rel="nofollow">Hi,请登录</a>&nbsp;&nbsp;<a href="javascript:;" class="register" rel="nofollow">我要注册</a>&nbsp;&nbsp;<a href="" rel="nofollow">找回密码</a> </div>
+        <a data-toggle="modal" data-target="#loginModal" class="login" rel="nofollow">Hi,请登录</a>&nbsp;&nbsp;<a href="toreg" class="register" rel="nofollow">我要注册</a>&nbsp;&nbsp;<a href="" rel="nofollow">找回密码</a> </div>
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar" aria-expanded="false"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
         <h1 class="logo hvr-bounce-in"><a href="" title=""><img src="images/logo.png" alt=""></a></h1>
       </div>
-      <div class="collapse navbar-collapse" id="header-navbar">
-        <ul class="nav navbar-nav navbar-right">
+      <div  class="collapse navbar-collapse" id="header-navbar">
+        <ul   class="nav navbar-nav navbar-right">
           <li class="hidden-index active"><a data-cont="异清轩首页" href="index.html">异清轩首页</a></li>
-          <li><a href="category.html">前端技术</a></li>
-          <li><a href="category.html">后端程序</a></li>
-          <li><a href="category.html">管理系统</a></li>
-          <li><a href="category.html">授人以渔</a></li>
-          <li><a href="category.html">程序人生</a></li>
+          <li th:each="l :${list}"><a href="category.html" th:text="${l.name}">前端技术</a></li>
         </ul>
         <form class="navbar-form visible-xs" action="/Search" method="post">
           <div class="input-group">
@@ -101,9 +97,9 @@
         <h3>最新发布</h3>
         <div class="more"><a href="">PHP</a><a href="">JavaScript</a><a href="">EmpireCMS</a><a href="">Apache</a><a href="">MySQL</a></div>
       </div>
-      <article th:each="a : ${alist}" class="excerpt excerpt-1"><a class="focus" href="article.html" title=""><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></a>
+      <article th:each="a : ${alist}" class="excerpt excerpt-1 post" ><a class="focus" th:href="'article?id=' +${a.id}" title=""><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></a>
         <header><a class="cat" href="program" th:text="${a.categoryid}">后端程序<i></i></a>
-          <h2><a href="article.html" title="" th:text="${a.title}">php如何判断一个日期的格式是否正确</a></h2>
+          <h2><a th:href="'article?id=' +${a.id}" title="" th:text="${a.title}">php如何判断一个日期的格式是否正确</a></h2>
         </header>
         <p class="meta">
           <time class="time" ><i class="glyphicon glyphicon-time"></i> <span th:text="${a.createtime}">2016-1-4 10:29:39</span></time>
@@ -111,15 +107,9 @@
         <p class="note" th:text="${a.content.substring(0,50)}">可以用strtotime()把日期（$date）转成时间戳，再用date()按需要验证的格式转成一个日期，来跟$date比较是否相同来验证这个日期的格式是否是正确的。所以要验证日期格式 ... </p>
       </article>
      
-      <nav class="pagination" style="display: none;">
-        <ul>
-          <li class="prev-page"></li>
-          <li class="active"><span>1</span></li>
-          <li><a href="?page=2">2</a></li>
-          <li class="next-page"><a href="?page=2">下一页</a></li>
-          <li><span>共 2 页</span></li>
-        </ul>
-      </nav>
+      <div id="pagination">
+      <a href="/" class="next">next</a>
+      </div>
     </div>
   </div>
   <aside class="sidebar">
@@ -174,12 +164,12 @@
     </div>
     <div class="widget widget_hot">
       <h3>热门文章</h3>
-      <ul>
-        <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
-        <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
-        <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
-        <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
-        <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
+      <ul th:each="h : ${hot}">
+        <li><a href="">
+        <span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span>
+        <span class="text" th:text="${h.title}">php如何判断一个日期的格式是否正确</span>
+        <span class="muted"><i class="glyphicon glyphicon-time"></i> <span  th:text="${h.createtime}">2016-1-4</span> </span>
+        <span class="muted" th:text="${h.readcnt}"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
       </ul>
     </div>
   </aside>
@@ -190,6 +180,8 @@
   </div>
   <div id="gotop"><a class="gotop"></a></div>
 </footer>
+<div id="last">
+
 <!--微信二维码模态框-->
 <div class="modal fade user-select" id="WeChat" tabindex="-1" role="dialog" aria-labelledby="WeChatModalLabel">
   <div class="modal-dialog" role="document" style="margin-top:120px;max-width:280px;">
@@ -259,5 +251,8 @@
 <script src="js/bootstrap.min.js"></script> 
 <script src="js/jquery.ias.js"></script> 
 <script src="js/scripts.js"></script>
+
+</div>
+
 </body>
 </html>
