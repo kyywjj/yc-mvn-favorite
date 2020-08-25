@@ -1,5 +1,9 @@
 package com.yc.S3Kyyblog.bean;
 
+import java.util.List;
+
+import org.springframework.validation.FieldError;
+
 public class Result {
 	private int code;//0失败 1成功
 	private String msg;//消息
@@ -12,6 +16,12 @@ public class Result {
 	public Result(int code, String msg) {
 		this.code = code;
 		this.msg = msg;
+	}
+	
+	public Result(int code, String msg,Object data) {
+		this.code = code;
+		this.msg = msg;
+		this.data = data;
 	}
 	public int getCode() {
 		return code;

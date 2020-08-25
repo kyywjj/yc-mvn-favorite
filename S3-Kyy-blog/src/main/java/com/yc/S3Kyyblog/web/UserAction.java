@@ -13,11 +13,16 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.S3Kyyblog.bean.Result;
 import com.yc.S3Kyyblog.bean.User;
 import com.yc.S3Kyyblog.biz.BizException;
 import com.yc.S3Kyyblog.biz.UserBiz;
+import com.yc.S3Kyyblog.util.Utils;
+
+import ch.qos.logback.classic.pattern.Util;
 
 @Controller
 public class UserAction {
@@ -31,7 +36,8 @@ public class UserAction {
 	@PostMapping("reg.do")
 	public String register(@Valid User user,Errors errors,Model m) {
 		if (errors.hasErrors()) {
-			m.addAttribute("errors", asMap(errors));
+			m.addAttribute("errors", Utils.asMap(errors));
+			m.addAttribute("user", user);
 			return "reg";
 		}
 		try {
@@ -39,7 +45,7 @@ public class UserAction {
 		} catch (BizException e) {
 			e.printStackTrace();
 			errors.rejectValue("account", "account",e.getMessage());
-			m.addAttribute("errors",asMap(errors));
+			m.addAttribute("errors",Utils.asMap(errors));
 			return "reg";
 		}
 		return "index";
@@ -53,30 +59,23 @@ public class UserAction {
 	/**
 	 * 登录Ajax提交==》Vue
 	 */
-	public Result  login(User user, HttpSession session) {
+	@RequestMapping("login.do")
+	@ResponseBody
+	public Result  login(User user, Errors errors,HttpSession session) {
+		
 		try {
+			if (errors.hasFieldErrors("account")||errors.hasFieldErrors("pwd")) {
+				Result res = new Result(0,"验证错误！", Utils.asMap(errors));
+				return res;
+			}
 			User dbUser =  uBiz.login(user);
 			session.setAttribute("loginedUser",dbUser);
+			return new Result(1,"登录成功！",dbUser);
 		} catch (BizException e) {
 			e.printStackTrace();
 			return new Result(e.getMessage());
 		}
-		return new Result(1, "登录成功");
 	}
 	
-	/**
-	 * 将所有的字段验证写入到一个map
-	 */
-	private Map<String, String> asMap(Errors errors){
-		if (errors.hasErrors()) {
-			Map<String, String>ret =new HashMap<String,String>();
-			for(FieldError fe: errors.getFieldErrors()) {
-				ret.put(fe.getField(),fe.getDefaultMessage());
-			}
-			return ret;
-		}else {
-			return null;
-		}
-	}
 
 }
