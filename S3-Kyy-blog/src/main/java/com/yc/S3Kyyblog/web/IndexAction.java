@@ -22,30 +22,20 @@ public class IndexAction {
 	private ArticleMapper amapper;
 	@Resource
 	private CategoryMapper cmapper;
-	@GetMapping("/")
-	public String  index(Model m,Model m1,Model m2,@RequestParam(defaultValue = "1") int page) {
+	@GetMapping({"/","/index.html"})
+	public String  index(Model m,@RequestParam(defaultValue = "1") int page) {
 		//在执行查询前，设置分页参数
 		//注意： 必须是在查询方法执行前， 调用分页参数设置
 		PageHelper.startPage(page, 5);
 		m.addAttribute("alist",amapper.selectByNew());
-		m1.addAttribute("list",cmapper.selectAll());
-		m2.addAttribute("hot", amapper.selectByReadCnt());
+		m.addAttribute("list",cmapper.selectAll());
+		m.addAttribute("hot", amapper.selectByReadCnt());
 		return "index";
 		//springmvc==>会将返回的视图名 前+template + 视图名 +后缀
 	}
-	@GetMapping("article")
-	public String article(int id, Model m ) {
-		m.addAttribute("article",amapper.selectById(id));
-		
-		return "article";
-	}
 	
 	
-//	@GetMapping("category")
-//	public  String category(Model m) {
-//		m.addAttribute("list",cmapper.selectAll());
-//		return "category";
-//	}
+	
 	
 	
 

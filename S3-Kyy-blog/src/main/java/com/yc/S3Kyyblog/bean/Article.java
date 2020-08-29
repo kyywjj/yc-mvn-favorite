@@ -2,6 +2,7 @@ package com.yc.S3Kyyblog.bean;
 
 import java.security.Timestamp;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 public class Article implements java.io.Serializable {
@@ -11,21 +12,33 @@ public class Article implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private  Integer id;
 	private String author;
-	@NotEmpty
+	@NotEmpty(message = "昵称不能为空！")
 	private String title;
-	@NotEmpty
+	@NotEmpty(message = "内容不能为空！")
 	private String content;
 	private String keywords;
 	private String description;
-	@NotEmpty
+	@Min(1)
 	private Integer categoryid;
-	@NotEmpty
+	@NotEmpty(message = "便签不能为空！")
 	private String label;
 	private String titleimgs;
 	private String status;
 	private Timestamp createtime;
 	private Integer readcnt;
 	private Integer agreecnt;
+	
+	/*
+	 * 所属分类对象
+	 */
+	private Category category;
+	
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 	public Integer getId() {
 		return id;
 	}

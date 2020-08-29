@@ -1,7 +1,5 @@
 package com.yc.S3Kyyblog.web;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -10,7 +8,6 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +19,6 @@ import com.yc.S3Kyyblog.biz.BizException;
 import com.yc.S3Kyyblog.biz.UserBiz;
 import com.yc.S3Kyyblog.util.Utils;
 
-import ch.qos.logback.classic.pattern.Util;
 
 @Controller
 public class UserAction {

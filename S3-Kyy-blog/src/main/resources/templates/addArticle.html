@@ -39,11 +39,15 @@
 <section class="container">
   <div class="content-wrap">
     <div class="content">
-    	<form action="reg.do" method="post">
-    		标题：<input name="title"> <br>
-    		便签：<input name="categoryid"><br>
-    		标签：<input name="lable"><br>
-    		内容：<textarea name="content" id="content"></textarea><br>
+    	<form action="addArticle.do" method="post">
+    		标题：<input name="title">
+    		<span class="e" th:if="${errors}!=null" th:text="${errors.title}" ></span> <br>
+    		便签：<input  name="categoryid">
+    		<span class="e" th:if="${errors}!=null" th:text="${errors.get(categoryid)}" ></span> <br>
+    		标签：<input  name="lable">
+    		<span class="e" th:if="${errors}!=null" th:text="${errors.lable}" ></span> <br>
+    		内容：
+    		<textarea  name="content" id="content"></textarea><br>
     		<script>
     			CKEDITOR.replace('content');
     		</script>
